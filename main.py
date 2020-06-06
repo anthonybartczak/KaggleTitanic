@@ -1,19 +1,22 @@
 import pandas as pd
 import numpy as np
-import h2o as h
 import os
+from h2o.estimators import H2ORandomForestEstimator
+import h2o
 
-for dirname, _, filenames in os.walk('input'):
-    for filename in filenames:
-        print(os.path.join(dirname, filename))
+h2o.init()
 
-train_data = pd.read_csv("input/train.csv")
-test_data = pd.read_csv("input/test.csv")
-women = train_data.loc[train_data.Sex == 'female']["Survived"] # Filter women that survived.
-men = train_data.loc[train_data.Sex == 'male']["Survived"] # Filter men that survived.
+train_data = h2o.import_file(path="input/train.csv", na_strings=[""])
+test_data = h2o.import_file(path="input/test.csv", na_strings=[""])
 
-rate_men = sum(men)/len(men)
-rate_women = sum(women)/len(women)
+training_columns = ["Pclass", "Sex", "SibSp", "Parch"]
+response_column = "Survived"
 
-print("% of women who survived:", rate_women)
-print("% of men who survived:", rate_men)
+model = H2ORandomForestEstimator(ntrees=100, max_depth=5)
+model.train(x=training_columns, y=response_column, training_frame=train_data)
+predictions = model.predict(test_data)
+
+test_data = test_data.as_data_frame()
+predictions = predictions.as_data_frame()
+output = pd.DataFrame({'PassengerId': test_data.PassengerId, 'Survived': predictions})
+output.to_csv('my_submission.csv', index=False)
