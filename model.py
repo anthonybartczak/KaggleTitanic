@@ -7,17 +7,25 @@ import h2o
 class ForestInitializer(object):
 
     def __init__(self):
+        #Add default model values
         self.seed = 1
-        self.ntrees = 500
+        self.ntrees = 500 # Add this to parameter selection.
         self.max_depth = 20 #suggested 1000
 
     def initForest(self):
         
-        h2o.init()
+        h2o.shutdown()
+        h2o.init(
+            nthreads=-1
+        )
 
         train_data = h2o.import_file("input/train.csv")
         test_data = h2o.import_file("input/test.csv")
 
+        train_summary = train_data.summary(return_data=True)
+        test_summary = test_data.summary(return_data=True)
+
+        # Dropping it as 
         train_data = train_data.drop('PassengerId')
 
         training_columns = train_data.columns
@@ -30,7 +38,10 @@ class ForestInitializer(object):
             max_depth=self.max_depth,
             score_each_iteration=True)
 
-        model.train(x=training_columns, y=response_column, training_frame=train_data)
+        model.train(
+            x=training_columns,
+            y=response_column,
+            training_frame=train_data)
 
         predictions = model.predict(test_data)
         predictions = predictions[0].as_data_frame().values.flatten()
@@ -41,6 +52,5 @@ class ForestInitializer(object):
 
         print(model.model_performance(train_data, test_data))
 
-
-c1 = ForestInitializer()
-c1.initForest()
+        # Check AUC for performance (increase is better)
+        # Check LogLoss for performance (decrease is better)
