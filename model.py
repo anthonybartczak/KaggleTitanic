@@ -1,8 +1,7 @@
-import pandas as pd
-import numpy as np
-import os
 from h2o.estimators import H2ORandomForestEstimator
 import h2o
+import os
+import pandas as pd
 
 class ForestInitializer(object):
 
@@ -13,8 +12,9 @@ class ForestInitializer(object):
         self.max_depth = 20 #suggested 1000
 
     def initForest(self):
+
+        print("Running Random Forest")
         
-        h2o.shutdown()
         h2o.init(
             nthreads=-1
         )
