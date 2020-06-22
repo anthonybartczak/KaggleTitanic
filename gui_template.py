@@ -38,6 +38,7 @@ class Ui_MainWindow(object):
 
         self.textEdit_3 = QTextEdit(self.centralwidget)
         self.textEdit_3.setObjectName(u"textEdit_3")
+        self.textEdit_3.setPlaceholderText("Default = 1")
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -66,6 +67,7 @@ class Ui_MainWindow(object):
 
         self.textEdit = QTextEdit(self.centralwidget)
         self.textEdit.setObjectName(u"textEdit")
+        self.textEdit.setPlaceholderText("Default = 100")
         sizePolicy.setHeightForWidth(self.textEdit.sizePolicy().hasHeightForWidth())
         self.textEdit.setSizePolicy(sizePolicy)
         self.textEdit.setMaximumSize(QSize(16777215, 25))
@@ -86,6 +88,7 @@ class Ui_MainWindow(object):
 
         self.textEdit_2 = QTextEdit(self.centralwidget)
         self.textEdit_2.setObjectName(u"textEdit_2")
+        self.textEdit_2.setPlaceholderText("Default = 1000")
         sizePolicy.setHeightForWidth(self.textEdit_2.sizePolicy().hasHeightForWidth())
         self.textEdit_2.setSizePolicy(sizePolicy)
         self.textEdit_2.setMaximumSize(QSize(16777215, 25))
@@ -149,7 +152,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Seed", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"N Trees", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Max Depth", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Data details", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Performance", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Logs", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Run", None))
     # retranslateUi

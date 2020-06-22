@@ -8,3 +8,7 @@ output
 db.sqlite3
 .DS_Store
 .vscode
+build
+dist
+h2o_jar
+main.spec
